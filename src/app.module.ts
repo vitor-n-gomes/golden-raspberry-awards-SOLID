@@ -11,7 +11,7 @@ import { MovieModule } from './app/movie/movie.module';
       isGlobal: true,
     }),
     EnvModule,
-    MovieModule
+    MovieModule,
   ],
 })
 export class AppModule {}
