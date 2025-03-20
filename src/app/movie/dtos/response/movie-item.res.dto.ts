@@ -18,5 +18,6 @@ export class MovieItemResponseDto implements Movie {
   producers: string;
 
   @IsOptional()
-  winner: string;
+  @IsString()
+  winner?: 'yes';
 }

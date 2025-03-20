@@ -14,6 +14,7 @@ export class UpdateMovieReqDto implements Partial<Movie> {
   @IsString()
   producers: string;
 
+  @IsOptional()
   @IsString()
-  winner: 'yes' | 'no';
+  winner: 'yes';
 }

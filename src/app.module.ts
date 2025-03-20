@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { envSchema } from './app/env/env';
 import { EnvModule } from './app/env/env.module';
 import { MovieModule } from './app/movie/movie.module';
+import { ProducerModule } from './app/producer/producer.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { MovieModule } from './app/movie/movie.module';
     }),
     EnvModule,
     MovieModule,
+    ProducerModule
   ],
 })
 export class AppModule {}
