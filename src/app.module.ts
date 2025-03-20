@@ -4,6 +4,7 @@ import { envSchema } from './app/env/env';
 import { EnvModule } from './app/env/env.module';
 import { MovieModule } from './app/movie/movie.module';
 import { ProducerModule } from './app/producer/producer.module';
+import { AnalyzeReportModule } from './app/analyze-report/analyze-report.module';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { ProducerModule } from './app/producer/producer.module';
     }),
     EnvModule,
     MovieModule,
-    ProducerModule
+    ProducerModule,
+    AnalyzeReportModule,
   ],
 })
 export class AppModule {}

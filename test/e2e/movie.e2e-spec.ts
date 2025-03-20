@@ -39,8 +39,6 @@ describe('MoviesController (e2e)', () => {
   });
 
   it('GET /nonexistent should return 404', () => {
-    return request(app.getHttpServer())
-      .get('/nonexistent')
-      .expect(404);
+    return request(app.getHttpServer()).get('/nonexistent').expect(404);
   });
 });

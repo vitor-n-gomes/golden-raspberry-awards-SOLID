@@ -16,5 +16,5 @@ export class CreateMovieReqDto implements Partial<Movie> {
 
   @IsOptional()
   @IsString()
-  winner: 'yes'
+  winner: 'yes';
 }
