@@ -1,7 +1,8 @@
-import { Module } from '@nestjs/common'
-import { ConfigModule } from '@nestjs/config'
-import { envSchema } from './app/env/env'
-import { EnvModule } from './app/env/env.module'
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { envSchema } from './app/env/env';
+import { EnvModule } from './app/env/env.module';
+import { MovieModule } from './app/movie/movie.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { EnvModule } from './app/env/env.module'
       isGlobal: true,
     }),
     EnvModule,
+    MovieModule
   ],
 })
 export class AppModule {}
