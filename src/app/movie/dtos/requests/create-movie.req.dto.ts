@@ -1,4 +1,4 @@
-import { IsString, IsInt, IsOptional } from 'class-validator';
+import { IsString, IsInt } from 'class-validator';
 import { Movie } from '../../models/movie.model';
 
 export class CreateMovieReqDto implements Partial<Movie> {
@@ -14,6 +14,6 @@ export class CreateMovieReqDto implements Partial<Movie> {
   @IsString()
   producers: string;
 
-  @IsOptional()
-  winner: string;
+  @IsString()
+  winner: 'yes' | 'no';
 }

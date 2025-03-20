@@ -9,5 +9,5 @@ export class Movie {
 
   producers: string;
 
-  winner: string;
+  winner: 'yes' | 'no';
 }
