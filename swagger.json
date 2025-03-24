@@ -305,9 +305,32 @@
           "producers"
         ]
       },
-      "ProducerInterval": {
+      "ProducerIntervalsResponseDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "producer": {
+            "type": "string",
+            "description": "Name of the producer"
+          },
+          "interval": {
+            "type": "number",
+            "description": "Interval between wins"
+          },
+          "previousWin": {
+            "type": "number",
+            "description": "Year of the previous win"
+          },
+          "followingWin": {
+            "type": "number",
+            "description": "Year of the following win"
+          }
+        },
+        "required": [
+          "producer",
+          "interval",
+          "previousWin",
+          "followingWin"
+        ]
       },
       "ProducerIntervalsResultResponseDto": {
         "type": "object",
@@ -324,7 +347,7 @@
             ],
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ProducerInterval"
+              "$ref": "#/components/schemas/ProducerIntervalsResponseDto"
             }
           },
           "max": {
@@ -339,7 +362,7 @@
             ],
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ProducerInterval"
+              "$ref": "#/components/schemas/ProducerIntervalsResponseDto"
             }
           }
         },
