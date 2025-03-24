@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { MovieInMemory } from './in-memories/movie.in.memory';
 import { MovieRepository } from './interfaces/movie.repository';
+import { MovieInMemory } from './in-memories/movie.in.memory';
 
 @Module({
   providers: [

@@ -7,5 +7,4 @@ export class ProducerItemResponseDto implements Producer {
 
   @IsString()
   name: string;
-
 }

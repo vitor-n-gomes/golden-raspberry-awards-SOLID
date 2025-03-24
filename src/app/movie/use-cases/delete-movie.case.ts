@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { MovieRepository } from '../repositories/interfaces/movie.repository';
+import { NotFoundError } from '@/common/errors/not-found.error';
 
 @Injectable()
 export class DeleteMovieCase {
@@ -8,7 +9,7 @@ export class DeleteMovieCase {
   async execute(id: string): Promise<void> {
     const existingMovie = await this.movieRepository.getMovieById(id);
     if (!existingMovie) {
-      throw new Error(`Movie with id ${id} not found.`);
+      throw new NotFoundError(`Movie with id ${id} not found.`);
     }
 
     await this.movieRepository.deleteMovie(id);

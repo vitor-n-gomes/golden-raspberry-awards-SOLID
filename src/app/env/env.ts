@@ -1,11 +1,21 @@
-import * as z from 'zod';
+import { IsString, validateSync } from 'class-validator';
 
-export const envSchema = z
-  .object({
-    HOST: z.string(),
-    NODE_ENV: z.string(),
-    PORT: z.string(),
-  })
-  .nonstrict();
+export class Env {
+  @IsString()
+  HOST: string;
 
-export type Env = z.infer<typeof envSchema>;
+  @IsString()
+  NODE_ENV: string;
+
+  @IsString()
+  PORT: string;
+
+  static validate(config: Record<string, any>): Env {
+    const env = Object.assign(new Env(), config);
+    const errors = validateSync(env, { whitelist: true, forbidNonWhitelisted: true });
+    if (errors.length > 0) {
+      throw new Error(`Environment validation failed: ${errors}`);
+    }
+    return env;
+  }
+}

@@ -1,110 +1,75 @@
 import { Injectable } from '@nestjs/common';
 import { AnalyzeReportRepository } from '../interfaces/analyze-report.repository';
-import { ProducerInterval } from '../../models/producer-interval.model';
-import { MovieRepository } from 'src/app/movie/repositories/interfaces/movie.repository';
 import { ProducerIntervalsResult } from '../../models/producer-intervals-result.model';
+import { MovieRepository } from '@/app/movie/repositories/interfaces/movie.repository';
+import { ProducerInterval } from '../../models/producer-interval.model';
 
 @Injectable()
 export class AnalyzeReportInMemory implements AnalyzeReportRepository {
-    constructor(private readonly movieRepository: MovieRepository) {}
+  constructor(private readonly movieRepository: MovieRepository) {}
 
-    async getProducerAwardIntervals(): Promise<ProducerIntervalsResult> {
-        const allMovies = await this.movieRepository.getMovies();
-        const winningMovies = this.filterWinningMovies(allMovies);
-        const producerIntervals = this.calculateProducerIntervals(winningMovies);
-        const allIntervals = this.flattenProducerIntervals(producerIntervals);
+  async getProducerAwardIntervals(): Promise<ProducerIntervalsResult> {
+    const winningMovies = (await this.movieRepository.getMovies()).filter(
+      (movie) => movie.winner,
+    );
 
-        return this.getMinMaxIntervals(allIntervals);
-    }
+    const producerIntervals: Record<string, ProducerInterval[]> = {};
 
-    private filterWinningMovies(movies: any[]): any[] {
-        return movies.filter((movie) => movie.winner === 'yes');
-    }
+    winningMovies.forEach((movie) => {
+      const producers = movie.producers.split(/ and |, /);
 
-    private calculateProducerIntervals(winningMovies: any[]): {
-        [producer: string]: {
-            previousWin: number;
-            interval: number;
-            followingWin: number;
-        }[];
-    } {
-        const producerIntervals: {
-            [producer: string]: {
-                previousWin: number;
-                interval: number;
-                followingWin: number;
-            }[];
-        } = {};
+      producers.forEach((producer) => {
+        const producerSlug = this.generateSlug(producer);
 
-        winningMovies.forEach((movie) => {
-            if (!producerIntervals[movie.producers]) {
-                producerIntervals[movie.producers] = [];
-            }
+        if (!producerIntervals[producerSlug]) {
+          producerIntervals[producerSlug] = [];
+        }
 
-            producerIntervals[movie.producers].forEach((interval) => {
-                if (movie.year > interval.previousWin) {
-                    const newInterval = movie.year - interval.previousWin;
-                    producerIntervals[movie.producers].push({
-                        previousWin: movie.year,
-                        interval: newInterval,
-                        followingWin: movie.year,
-                    });
-                }
-            });
+        const wins = producerIntervals[producerSlug];
+        if (wins.length > 0) {
+          const lastWin = wins[wins.length - 1];
+          wins.push({
+            previousWin: lastWin.followingWin,
+            followingWin: movie.year,
+            interval: movie.year - lastWin.followingWin,
+            producer,
+          });
+        }
 
-            producerIntervals[movie.producers].push({
-                previousWin: movie.year,
-                interval: 0,
-                followingWin: movie.year,
-            });
+        wins.push({
+          previousWin: movie.year,
+          followingWin: movie.year,
+          interval: 0,
+          producer,
         });
+      });
+    });
 
-        return producerIntervals;
-    }
+    const allIntervals = Object.values(producerIntervals)
+      .flat()
+      .filter((interval) => interval.interval > 0);
 
-    private flattenProducerIntervals(producerIntervals: {
-        [producer: string]: {
-            previousWin: number;
-            interval: number;
-            followingWin: number;
-        }[];
-    }): ProducerInterval[] {
-        const allIntervals: ProducerInterval[] = [];
+    const minInterval = Math.min(
+      ...allIntervals.map((interval) => interval.interval),
+    );
+    const maxInterval = Math.max(
+      ...allIntervals.map((interval) => interval.interval),
+    );
 
-        Object.keys(producerIntervals).forEach((producer) => {
-            producerIntervals[producer].forEach((interval) => {
-                if (interval.interval > 0) {
-                    allIntervals.push({
-                        producer,
-                        interval: interval.interval,
-                        previousWin: interval.previousWin,
-                        followingWin: interval.followingWin,
-                    });
-                }
-            });
-        });
+    return {
+      min: allIntervals.filter((interval) => interval.interval === minInterval),
+      max: allIntervals.filter((interval) => interval.interval === maxInterval),
+    };
+  }
 
-        return allIntervals;
-    }
-
-    private getMinMaxIntervals(allIntervals: ProducerInterval[]): ProducerIntervalsResult {
-        const minInterval = Math.min(
-            ...allIntervals.map((interval) => interval.interval),
-        );
-        const maxInterval = Math.max(
-            ...allIntervals.map((interval) => interval.interval),
-        );
-
-        const minIntervals = allIntervals.filter(
-            (interval) => interval.interval === minInterval,
-        );
-        const maxIntervals = allIntervals.filter(
-            (interval) => interval.interval === maxInterval,
-        );
-
-        return {
-            min: minIntervals,
-            max: maxIntervals,
-        };
-    }
+  private generateSlug(name: string): string {
+    return name
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[\s_]+/g, '-')
+      .replace(/[^a-z0-9-]/g, '')
+      .replace(/^-+|-+$/g, '')
+      .replace(/-+/g, '-');
+  }
 }
