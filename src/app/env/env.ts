@@ -10,11 +10,13 @@ export class Env {
   @IsString()
   PORT: string;
 
-  static validate(config: Record<string, any>): Env {
-    const env = Object.assign(new Env(), config);
-    const errors = validateSync(env, { whitelist: true, forbidNonWhitelisted: true });
+  static validate(): Env {
+    const env = Object.assign(new Env(), process.env);
+    const errors = validateSync(env, { whitelist: true });
     if (errors.length > 0) {
-      throw new Error(`Environment validation failed: ${errors}`);
+      throw new Error(
+        `Environment validation failed: ${JSON.stringify(errors)}`,
+      );
     }
     return env;
   }

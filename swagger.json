@@ -1,0 +1,353 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/movies": {
+      "post": {
+        "operationId": "CreateMovieController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMovieReqDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Movie created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieItemResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input."
+          }
+        },
+        "summary": "Create a new movie",
+        "tags": [
+          "Movies"
+        ]
+      },
+      "get": {
+        "operationId": "ListMovieController_handle",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Movies retrieved successfully."
+          }
+        },
+        "summary": "List all movies",
+        "tags": [
+          "Movies"
+        ]
+      }
+    },
+    "/movies/{id}": {
+      "delete": {
+        "operationId": "DeleteMovieController_handle",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Movie deleted successfully."
+          },
+          "404": {
+            "description": "Movie not found."
+          }
+        },
+        "summary": "Delete a movie by ID",
+        "tags": [
+          "Movies"
+        ]
+      },
+      "get": {
+        "operationId": "FindMovieController_handle",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Movie found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieItemResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Movie not found."
+          }
+        },
+        "summary": "Find a movie by ID",
+        "tags": [
+          "Movies"
+        ]
+      },
+      "put": {
+        "operationId": "UpdateMovieController_handle",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMovieReqDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Movie updated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieItemResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Movie not found."
+          }
+        },
+        "summary": "Update a movie by ID",
+        "tags": [
+          "Movies"
+        ]
+      }
+    },
+    "/analyze-producer-award-intervals": {
+      "get": {
+        "operationId": "AnalyzeProducerAwardIntervalsController_handle",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Producer intervals result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProducerIntervalsResultResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Movies not found."
+          }
+        },
+        "summary": "Analyze producer awards intervals",
+        "tags": [
+          "AnalyzeProducerAwardIntervals"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Golden Raspberry Awards API",
+    "description": "API documentation for Golden Raspberry Awards",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Movies",
+      "description": ""
+    }
+  ],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "CreateMovieReqDto": {
+        "type": "object",
+        "properties": {
+          "year": {
+            "type": "number",
+            "description": "Year of the movie",
+            "example": 1994
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the movie",
+            "example": "The Shawshank Redemption"
+          },
+          "studios": {
+            "type": "string",
+            "description": "Studios involved in the movie",
+            "example": "Castle Rock Entertainment"
+          },
+          "producers": {
+            "type": "string",
+            "description": "Producers of the movie",
+            "example": "Niki Marvin"
+          },
+          "winner": {
+            "type": "boolean",
+            "description": "Indicates if the movie is a winner",
+            "example": true
+          }
+        },
+        "required": [
+          "year",
+          "title",
+          "studios",
+          "producers"
+        ]
+      },
+      "MovieItemResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID of the movie",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "year": {
+            "type": "number",
+            "description": "Year of the movie",
+            "example": 1994
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the movie",
+            "example": "The Shawshank Redemption"
+          },
+          "studios": {
+            "type": "string",
+            "description": "Studios involved in the movie",
+            "example": "Castle Rock Entertainment"
+          },
+          "producers": {
+            "type": "string",
+            "description": "Producers of the movie",
+            "example": "Niki Marvin"
+          },
+          "winner": {
+            "type": "boolean",
+            "description": "Indicates if the movie is a winner",
+            "example": true
+          }
+        },
+        "required": [
+          "id",
+          "year",
+          "title",
+          "studios",
+          "producers"
+        ]
+      },
+      "UpdateMovieReqDto": {
+        "type": "object",
+        "properties": {
+          "year": {
+            "type": "number",
+            "description": "Year of the movie",
+            "example": 1994
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the movie",
+            "example": "The Shawshank Redemption"
+          },
+          "studios": {
+            "type": "string",
+            "description": "Studios involved in the movie",
+            "example": "Castle Rock Entertainment"
+          },
+          "producers": {
+            "type": "string",
+            "description": "Producers of the movie",
+            "example": "Niki Marvin"
+          },
+          "winner": {
+            "type": "boolean",
+            "description": "Indicates if the movie is a winner",
+            "example": true
+          }
+        },
+        "required": [
+          "year",
+          "title",
+          "studios",
+          "producers"
+        ]
+      },
+      "ProducerInterval": {
+        "type": "object",
+        "properties": {}
+      },
+      "ProducerIntervalsResultResponseDto": {
+        "type": "object",
+        "properties": {
+          "min": {
+            "description": "List of producers with the minimum intervals between awards",
+            "example": [
+              {
+                "producer": "Producer A",
+                "interval": 1,
+                "previousWin": 2000,
+                "followingWin": 2001
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProducerInterval"
+            }
+          },
+          "max": {
+            "description": "List of producers with the maximum intervals between awards",
+            "example": [
+              {
+                "producer": "Producer B",
+                "interval": 10,
+                "previousWin": 1990,
+                "followingWin": 2000
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProducerInterval"
+            }
+          }
+        },
+        "required": [
+          "min",
+          "max"
+        ]
+      }
+    }
+  }
+}
