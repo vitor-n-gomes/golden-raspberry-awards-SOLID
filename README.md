@@ -76,6 +76,19 @@ npm run test:cov
 yarn test:cov
 ```
 
+## Accessing the API
+
+Once the application is running, you can access the API at the following URL:
+
+- **Base URL**: `http://localhost:3000`
+
+### API Endpoints
+
+- `/movies`: Manage movie data.
+- `/analyze-producer-award-intervals`: Analyze award intervals.
+
+You can use tools like [Postman](https://www.postman.com/) or [cURL](https://curl.se/) to interact with the API.
+
 ## Code Coverage
 
 The project uses **Istanbul** for code coverage. Coverage reports can be found in the `coverage/` directory after running the coverage command.
