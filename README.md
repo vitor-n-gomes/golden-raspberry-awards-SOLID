@@ -28,6 +28,14 @@ This project is a backend application built using the **NestJS** framework. It a
    yarn install
    ```
 
+3. Set up environment variables:
+   Copy the `env.example` file to `.env` and configure the necessary variables:
+   ```bash
+   cp env.example .env
+   ```
+
+   Update the `.env` file with your specific configuration.
+
 ## Running the Application
 
 ### Development Mode
