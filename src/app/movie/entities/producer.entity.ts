@@ -3,7 +3,7 @@ import { Movie } from './movie.entity';
 
 @Entity()
 export class Producer {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()

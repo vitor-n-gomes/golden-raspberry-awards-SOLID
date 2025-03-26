@@ -1,9 +1,5 @@
 import { Module, OnModuleInit } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Movie } from './entities/movie.entity';
-import { Producer } from './entities/producer.entity';
 import { MovieUseCaseModule } from './use-cases/movie.use.case.module';
-import { MovieRepositoryModule } from './repositories/movie.repository.module';
 import { CreateMovieController } from './controllers/create-movie.controller';
 import { DeleteMovieController } from './controllers/delete-movie.controller';
 import { FindMovieController } from './controllers/find-movie.controller';

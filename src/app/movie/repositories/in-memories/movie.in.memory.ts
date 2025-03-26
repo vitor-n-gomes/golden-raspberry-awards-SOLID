@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { Movie } from '../../models/movie.model';
-import { v4 as uuidv4 } from 'uuid';
 import { MovieRepository } from '../interfaces/movie.repository';
 
 @Injectable()
