@@ -86,6 +86,7 @@ Once the application is running, you can access the API at the following URL:
 
 - `/movies`: Manage movie data.
 - `/analyze-producer-award-intervals`: Analyze award intervals.
+- `/api-docs`: Swagger API's docs.
 
 You can use tools like [Postman](https://www.postman.com/) or [cURL](https://curl.se/) to interact with the API.
 

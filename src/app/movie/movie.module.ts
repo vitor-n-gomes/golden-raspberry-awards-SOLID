@@ -1,4 +1,7 @@
 import { Module, OnModuleInit } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Movie } from './entities/movie.entity';
+import { Producer } from './entities/producer.entity';
 import { MovieUseCaseModule } from './use-cases/movie.use.case.module';
 import { MovieRepositoryModule } from './repositories/movie.repository.module';
 import { CreateMovieController } from './controllers/create-movie.controller';
@@ -9,8 +12,12 @@ import { UpdateMovieController } from './controllers/update-movie.controller';
 import { MovieSeed } from './seeds/movie.seed';
 
 @Module({
+  imports: [
+    TypeOrmModule.forFeature([Movie, Producer]),
+    MovieUseCaseModule,
+    MovieRepositoryModule,
+  ],
   providers: [MovieSeed],
-  imports: [MovieUseCaseModule, MovieRepositoryModule],
   controllers: [
     CreateMovieController,
     DeleteMovieController,
