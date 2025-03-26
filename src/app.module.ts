@@ -12,12 +12,6 @@ import { Env } from './app/env/env';
       validate: Env.validate,
       isGlobal: true,
     }),
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: './data/testdb.sqlite', 
-      synchronize: true, 
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-    }),
     EnvModule,
     MovieModule,
     AnalyzeReportModule,

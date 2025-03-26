@@ -13,9 +13,7 @@ import { MovieSeed } from './seeds/movie.seed';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Movie, Producer]),
     MovieUseCaseModule,
-    MovieRepositoryModule,
   ],
   providers: [MovieSeed],
   controllers: [
