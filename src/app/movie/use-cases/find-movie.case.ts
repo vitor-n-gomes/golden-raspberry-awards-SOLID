@@ -6,7 +6,7 @@ import { MovieRepository } from '../repositories/interfaces/movie.repository';
 export class FindMovieCase {
   constructor(private readonly movieRepository: MovieRepository) {}
 
-  async execute(id: string): Promise<Movie> {
+  async execute(id: number): Promise<Movie> {
     const movie = await this.movieRepository.getMovieById(id);
     if (!movie) {
       throw new Error(`Movie with id ${id} not found.`);

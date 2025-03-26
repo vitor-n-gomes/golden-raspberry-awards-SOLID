@@ -11,13 +11,13 @@ export class MovieInMemory implements MovieRepository {
     return MovieInMemory.movies;
   }
 
-  async getMovieById(id: string): Promise<Movie> {
-    const movie = MovieInMemory.movies.find((movie) => movie.id == id);
+  async getMovieById(id: number): Promise<Movie> {
+    const movie = MovieInMemory.movies.find((movie) => movie.id === id);
     return movie;
   }
 
   async createMovie(movie: Movie): Promise<Movie> {
-    movie.id = movie.id ?? uuidv4();
+    movie.id = MovieInMemory.movies.length + 1;
     MovieInMemory.movies.push(movie);
     return movie;
   }
@@ -28,7 +28,7 @@ export class MovieInMemory implements MovieRepository {
     });
   }
 
-  async updateMovie(id: string, movie: Movie): Promise<Movie> {
+  async updateMovie(id: number, movie: Movie): Promise<Movie> {
     const index = MovieInMemory.movies.findIndex((m) => m.id === id);
     if (index === -1) {
       throw new Error(`Movie with id ${id} not found.`);
@@ -37,8 +37,8 @@ export class MovieInMemory implements MovieRepository {
     return MovieInMemory.movies[index];
   }
 
-  async deleteMovie(id: string): Promise<void> {
-    const index = MovieInMemory.movies.findIndex((movie) => movie.id == id);
+  async deleteMovie(id: number): Promise<void> {
+    const index = MovieInMemory.movies.findIndex((movie) => movie.id === id);
     if (index === -1) {
       throw new Error(`Movie with id ${id} not found.`);
     }

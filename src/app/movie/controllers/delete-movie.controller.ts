@@ -11,7 +11,7 @@ export class DeleteMovieController {
   @ApiOperation({ summary: 'Delete a movie by ID' })
   @ApiResponse({ status: 200, description: 'Movie deleted successfully.' })
   @ApiResponse({ status: 404, description: 'Movie not found.' })
-  async handle(@Param('id') id: string) {
+  async handle(@Param('id') id: number) {
     return await this.useCase.execute(id);
   }
 }

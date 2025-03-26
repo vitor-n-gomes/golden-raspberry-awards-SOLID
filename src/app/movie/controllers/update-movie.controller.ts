@@ -14,7 +14,7 @@ export class UpdateMovieController {
   @ApiResponse({ status: 200, description: 'Movie updated successfully.', type: MovieItemResponseDto })
   @ApiResponse({ status: 404, description: 'Movie not found.' })
   async handle(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() updateMovieDto: UpdateMovieReqDto,
   ) {
     return await this.useCase.execute(id, updateMovieDto);

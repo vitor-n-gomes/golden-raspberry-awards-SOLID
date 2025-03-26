@@ -7,6 +7,9 @@ export class UpdateMovieReqDto implements Partial<Movie> {
   @IsInt()
   year: number;
 
+  @ApiProperty({ description: 'ID of the movie', example: 1 })
+  id?: number;
+
   @ApiProperty({ description: 'Title of the movie', example: 'The Shawshank Redemption' })
   @IsString()
   title: string;

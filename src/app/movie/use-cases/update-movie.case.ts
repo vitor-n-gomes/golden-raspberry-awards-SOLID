@@ -7,7 +7,7 @@ import { NotFoundError } from '@/common/errors/not-found.error';
 export class UpdateMovieCase {
   constructor(private readonly movieRepository: MovieRepository) {}
 
-  async execute(id: string, movieData: Partial<Movie>): Promise<Movie> {
+  async execute(id: number, movieData: Partial<Movie>): Promise<Movie> {
     const existingMovie = await this.movieRepository.getMovieById(id);
     if (!existingMovie) {
       throw new NotFoundError(`Movie with id ${id} not found.`);

@@ -8,10 +8,10 @@ export class CreateMovieMigrations1742957420526 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'uuid',
+            type: 'int',
             isPrimary: true,
             isGenerated: true,
-            generationStrategy: 'uuid',
+            generationStrategy: 'increment',
           },
           {
             name: 'year',
@@ -40,12 +40,12 @@ export class CreateMovieMigrations1742957420526 implements MigrationInterface {
         columns: [
           {
             name: 'movieId',
-            type: 'uuid',
+            type: 'int',
             isPrimary: true,
           },
           {
             name: 'producerId',
-            type: 'uuid',
+            type: 'int',
             isPrimary: true,
           },
         ],
@@ -66,7 +66,7 @@ export class CreateMovieMigrations1742957420526 implements MigrationInterface {
       'movie_producers_producer',
       new TableForeignKey({
         columnNames: ['producerId'],
-        referencedColumnNames: ['uuid'],
+        referencedColumnNames: ['id'],
         referencedTableName: 'producer',
         onDelete: 'CASCADE',
       }),

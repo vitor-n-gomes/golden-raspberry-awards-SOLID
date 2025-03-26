@@ -6,7 +6,7 @@ import { NotFoundError } from '@/common/errors/not-found.error';
 export class DeleteMovieCase {
   constructor(private readonly movieRepository: MovieRepository) {}
 
-  async execute(id: string): Promise<void> {
+  async execute(id: number): Promise<void> {
     const existingMovie = await this.movieRepository.getMovieById(id);
     if (!existingMovie) {
       throw new NotFoundError(`Movie with id ${id} not found.`);

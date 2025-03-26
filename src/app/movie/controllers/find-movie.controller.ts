@@ -12,7 +12,7 @@ export class FindMovieController {
   @ApiOperation({ summary: 'Find a movie by ID' })
   @ApiResponse({ status: 200, description: 'Movie found.', type: MovieItemResponseDto })
   @ApiResponse({ status: 404, description: 'Movie not found.' })
-  async handle(@Param('id') id: string) {
+  async handle(@Param('id') id: number) {
     return await this.useCase.execute(id);
   }
 }

@@ -23,4 +23,7 @@ export class CreateMovieReqDto implements Partial<Movie> {
   @IsOptional()
   @IsBoolean()
   winner: boolean;
+
+  @ApiProperty({ description: 'ID of the movie', example: 1 })
+  id?: number;
 }
