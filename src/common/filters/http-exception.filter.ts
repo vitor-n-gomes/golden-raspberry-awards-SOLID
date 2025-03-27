@@ -4,9 +4,9 @@ import {
   ArgumentsHost,
   HttpException,
   HttpStatus,
-} from '@nestjs/common';
-import { NotFoundError } from '../errors/not-found.error';
-import { InternalServerError } from '../errors/internal-server.error';
+} from "@nestjs/common";
+import { NotFoundError } from "../errors/not-found.error";
+import { InternalServerError } from "../errors/internal-server.error";
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -16,7 +16,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest();
 
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
-    let message = 'Internal server error';
+    let message = "Internal server error";
 
     if (exception instanceof HttpException) {
       status = exception.getStatus();

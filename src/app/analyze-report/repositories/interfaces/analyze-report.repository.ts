@@ -1,5 +1,5 @@
-import { ProducerIntervalsResult } from '../../models/producer-intervals-result.model';
+import { ProducerAward } from "../../models/producer-awards.model";
 
 export abstract class AnalyzeReportRepository {
-  abstract getProducerAwardIntervals(): Promise<ProducerIntervalsResult>;
+  abstract getProducerAwardIntervals(): Promise<ProducerAward[]>;
 }

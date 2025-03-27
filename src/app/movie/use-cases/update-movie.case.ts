@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { Movie } from '../models/movie.model';
-import { MovieRepository } from '../repositories/interfaces/movie.repository';
-import { NotFoundError } from '@/common/errors/not-found.error';
+import { Injectable } from "@nestjs/common";
+import { Movie } from "../models/movie.model";
+import { MovieRepository } from "../repositories/interfaces/movie.repository";
+import { NotFoundError } from "@/common/errors/not-found.error";
 
 @Injectable()
 export class UpdateMovieCase {

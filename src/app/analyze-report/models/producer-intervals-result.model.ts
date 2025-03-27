@@ -1,4 +1,4 @@
-import { ProducerInterval } from './producer-interval.model';
+import { ProducerInterval } from "./producer-interval.model";
 
 export class ProducerIntervalsResult {
   min: ProducerInterval[];

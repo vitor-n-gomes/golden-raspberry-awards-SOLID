@@ -1,14 +1,15 @@
-import { Module } from '@nestjs/common';
-import { MovieRepository } from './interfaces/movie.repository';
-import { MovieInMemory } from './in-memories/movie.in.memory';
+import { Module, DynamicModule } from "@nestjs/common";
+import { RepositoryOrmModule } from "./orms/repository.orm.module";
+import { InMemoryRepositoryModule } from "./in-memories/in.memory.repository.module";
 
-@Module({
-  providers: [
-    {
-      provide: MovieRepository,
-      useClass: MovieInMemory,
-    },
-  ],
-  exports: [MovieRepository],
-})
-export class MovieRepositoryModule {}
+@Module({})
+export class MovieRepositoryModule {
+  static forRoot(): DynamicModule {
+    const isTesting = process.env.NODE_ENV === "test";
+    return {
+      module: MovieRepositoryModule,
+      imports: isTesting ? [InMemoryRepositoryModule] : [RepositoryOrmModule],
+      exports: isTesting ? [InMemoryRepositoryModule] : [RepositoryOrmModule],
+    };
+  }
+}

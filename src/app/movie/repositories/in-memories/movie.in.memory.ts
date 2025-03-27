@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { Movie } from '../../models/movie.model';
-import { MovieRepository } from '../interfaces/movie.repository';
+import { Injectable } from "@nestjs/common";
+import { Movie } from "../../models/movie.model";
+import { MovieRepository } from "../interfaces/movie.repository";
 
 @Injectable()
 export class MovieInMemory implements MovieRepository {
@@ -12,6 +12,9 @@ export class MovieInMemory implements MovieRepository {
 
   async getMovieById(id: number): Promise<Movie> {
     const movie = MovieInMemory.movies.find((movie) => movie.id === id);
+    if (!movie) {
+      throw new Error(`Movie with id ${id} not found.`);
+    }
     return movie;
   }
 

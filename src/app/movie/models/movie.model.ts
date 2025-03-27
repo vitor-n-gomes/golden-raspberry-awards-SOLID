@@ -7,7 +7,5 @@ export class Movie {
 
   studios: string;
 
-  producers: string;
-
   winner: boolean;
 }
