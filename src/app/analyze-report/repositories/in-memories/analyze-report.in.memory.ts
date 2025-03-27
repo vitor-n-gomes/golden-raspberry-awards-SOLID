@@ -8,16 +8,15 @@ export class AnalyzeReportInMemory implements AnalyzeReportRepository {
   constructor(private readonly movieRepository: MovieRepository) {}
 
   async getProducerAwardIntervals(): Promise<ProducerAward[]> {
+    const movies = await this.movieRepository.getMovies();
 
-    const movies = await this.movieRepository.getMovies()
-
-    return movies.filter( (movie) => { movie.winner == true }).map( (movie) => {
-      return {
-        producerName: movie.producer,
-        movieYear: movie.year
-      }
-
-    })
-  
+    return movies
+      .filter((movie) => movie.winner === true)
+      .map((movie) => {
+        return {
+          producerName: movie.producer,
+          movieYear: movie.year,
+        };
+      });
   }
 }

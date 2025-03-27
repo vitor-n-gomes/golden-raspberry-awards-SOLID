@@ -8,4 +8,6 @@ export class Movie {
   studios: string;
 
   winner: boolean;
+
+  producer?: string;
 }

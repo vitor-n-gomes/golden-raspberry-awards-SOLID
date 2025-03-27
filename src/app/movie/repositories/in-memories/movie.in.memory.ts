@@ -11,7 +11,7 @@ export class MovieInMemory implements MovieRepository {
   }
 
   async getMovieById(id: number): Promise<Movie> {
-    const movie = MovieInMemory.movies.find((movie) => movie.id === id);
+    const movie = MovieInMemory.movies.find((movie) => movie.id == id);
     if (!movie) {
       throw new Error(`Movie with id ${id} not found.`);
     }
@@ -31,7 +31,7 @@ export class MovieInMemory implements MovieRepository {
   }
 
   async updateMovie(id: number, movie: Movie): Promise<Movie> {
-    const index = MovieInMemory.movies.findIndex((m) => m.id === id);
+    const index = MovieInMemory.movies.findIndex((m) => m.id == id);
     if (index === -1) {
       throw new Error(`Movie with id ${id} not found.`);
     }
@@ -40,7 +40,7 @@ export class MovieInMemory implements MovieRepository {
   }
 
   async deleteMovie(id: number): Promise<void> {
-    const index = MovieInMemory.movies.findIndex((movie) => movie.id === id);
+    const index = MovieInMemory.movies.findIndex((movie) => movie.id == id);
     if (index === -1) {
       throw new Error(`Movie with id ${id} not found.`);
     }

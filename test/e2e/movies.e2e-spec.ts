@@ -1,18 +1,21 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import * as request from "supertest";
 import { INestApplication } from "@nestjs/common";
-import { AppModule } from "@/app.module";
+import { MovieModule } from "@/app/movie/movie.module";
+import MovieByCSVSeed from "./seeds/movie-by-csv.seeds";
 
 describe("MoviesController (e2e)", () => {
   let app: INestApplication;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [MovieModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
+
+    await MovieByCSVSeed.handle();
   });
 
   afterAll(async () => {
@@ -29,10 +32,10 @@ describe("MoviesController (e2e)", () => {
 
   it("/movies/:id (GET)", async () => {
     const response = await request(app.getHttpServer())
-      .get("/movies/1")
+      .get("/movies/4")
       .expect(200);
 
-    expect(response.body).toHaveProperty("id", 1);
+    expect(response.body).toHaveProperty("id", 4);
   });
 
   it("/movies (POST)", async () => {
@@ -58,7 +61,7 @@ describe("MoviesController (e2e)", () => {
     };
 
     const response = await request(app.getHttpServer())
-      .put("/movies/1")
+      .put("/movies/3")
       .send(updatedMovie)
       .expect(200);
 
