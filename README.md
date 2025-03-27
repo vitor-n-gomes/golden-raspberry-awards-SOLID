@@ -11,13 +11,14 @@ This project is a backend application built using the **NestJS** framework. It a
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) (v21 or higher)
+- [SQLite3](https://www.sqlite.org/)
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 
 ## Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/golden-raspberry-awards-SOLID.git
+   git clone https://github.com/vitor-n-gomes/golden-raspberry-awards-SOLID.git
    cd golden-raspberry-awards-SOLID
    ```
 
